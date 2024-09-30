@@ -11,6 +11,7 @@ import {
   Route,
   Link
 } from 'react-router-dom';
+import { Server } from 'miragejs'
 function App() {
 
   return (
