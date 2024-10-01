@@ -14,30 +14,37 @@ import HostLayout from './pages/Host/components/Host,.jsx';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './server.js';
 function App() {
-     /**
-
-   * Then replace the parent "/host" route's element below with the
-   * new HostLayout component you made.
+    /**
+   * Thought experiment:
    * 
-   * NOTE: The dashboard route/page will be gone for now, but don't fret.
-   * We'll be fixing that in the next lesson.
+   * Re-write the vans route as a nested route. Because there's no shared
+   * UI between /vans and /vans/:id, the parent "vans" route won't have its
+   * own `element` prop, just a `path` prop.
+   * 
+   * Hint: you're not creating a Layout Route (since that's only for
+   * shared UI), but you are using another kind of "pathless" route...
    */
 	return (
 		<BrowserRouter>
 			<Routes>
 				<Route element={<Layout />}>
+
 					<Route path='/' element={<Home />} />
 					<Route path='/about' element={<About />} />
+          
 					<Route path='/vans' element={<Vans />} />
 					<Route path='/vans/:id' element={<VanDetail />} />
-          <Route path='/host' element={<HostLayout />}>
-					<Route path='/host/income' element={<Income />} />
-					<Route path='/host/dashboard' element={<Dashboard />} />
-					<Route path='/host/reviews' element={<Reviews />} />
+
+
+          <Route path='host' element={<HostLayout />}>
+					<Route path='income' element={<Income />} />
+					<Route path='host' element={<Dashboard />} />
+					<Route path='reviews' element={<Reviews />} />
+
 				</Route>
-				</Route>
-			</Routes>
-		</BrowserRouter>
+			</Route>
+		</Routes>
+	</BrowserRouter>
 	);
 }
 
