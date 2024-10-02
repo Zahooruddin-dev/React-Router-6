@@ -1,14 +1,36 @@
-import React from "react";
-import { Link } from "react-router-dom";
-export default function Header(){
-  return(
-    <header>
-    <Link className="site-logo" to="/">#VanLife</Link>
-    <nav>
-      <Link to="/about">About</Link>
-      <Link to="/host">Host</Link>
-      <Link to="/vans">Vans</Link>
-    </nav>
-  </header>
-  )
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+export default function Header() {
+  const activeStyle={
+    fontWeight: 'bold',
+    textDecoration: 'underline',
+    color: '#161616'
+  }
+	return (
+		<header>
+			<NavLink className='site-logo' to='/'>
+				#VanLife
+			</NavLink>
+			<nav>
+				<NavLink
+					to='/host'
+					className={({ isActive }) => (isActive ? activeStyle : null)}
+				>
+					Home
+				</NavLink>
+				<NavLink
+					to='/about'
+					className={({ isActive }) => (isActive ? activeStyle : null)}
+				>
+					About
+				</NavLink>
+				<NavLink
+					to='/vans'
+					className={({ isActive }) => (isActive ? activeStyle : null)}
+				>
+					Vans
+				</NavLink>
+			</nav>
+		</header>
+	);
 }
