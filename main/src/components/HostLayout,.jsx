@@ -10,7 +10,7 @@ export default function HostLayout() {
 		<>
 			<nav className='host-nav'>
 				<NavLink
-					to='/host'
+					to='.'
           end
 					className={({ isActive }) => (isActive ? activeStyle : null)}
 				>
