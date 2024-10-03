@@ -4,7 +4,11 @@ import { Outlet, NavLink, useParams, Link } from 'react-router-dom';
 export default function HostVansDetails() {
 	const { id } = useParams();
 	const [van, setVan] = useState(null);
-
+  const activeStyle={
+    fontWeight: 'bold',
+    textDecoration: 'underline',
+    color: '#161616'
+  }
 	useEffect(() => {
 		fetch(`/api/host/vans/${id}`)
 			.then((res) => res.json())
@@ -15,57 +19,48 @@ export default function HostVansDetails() {
 			.catch((err) => console.error('Error fetching data:', err));
 	}, [id]);
 
-	const hostVanEl = van ? (
-		<div className='host-van-single' key={van.id}>
-			<img src={van.imageUrl} alt={`Photo of ${van.name}`} />
-			<div className='host-van-info'>
-				<h3>{van.name}</h3>
-				<p>${van.price}/day</p>
+	return van ? (
+		<section>
+			<Link to='..' relative='path' className='back-button'>
+				&larr; <span>Back to all vans</span>
+			</Link>
+
+			<div className='host-van-detail-layout-container'>
+				<div className='host-van-detail'>
+					<img src={van.imageUrl} />
+					<div className='host-van-detail-info-text'>
+						<i className={`van-type van-type-${van.type}`}>{van.type}</i>
+						<h3>{van.name}</h3>
+						<h4>${van.price}/day</h4>
+					</div>
+				</div>
+				<nav className='host-van-detail-na'>
+					<NavLink
+						to={`../vans/${id}/info`}
+						end
+            className={({ isActive }) => (isActive ? activeStyle : null)}
+            >
+						Details
+					</NavLink>
+					<NavLink
+						to={`../vans/${id}/pricing`}
+						end
+            className={({ isActive }) => (isActive ? activeStyle : null)}
+            >
+						Pricing
+					</NavLink>
+					<NavLink
+						to={`../vans/${id}/photos`}
+						end
+            className={({ isActive }) => (isActive ? activeStyle : null)}
+            >
+						Photos
+					</NavLink>
+				</nav>
+				<Outlet />
 			</div>
-		</div>
+		</section>
 	) : (
 		<p>Loading...</p>
-	);
-
-	return (
-		<>
-			<section>
-      <Link
-                to=".."
-                relative='path'
-                className="back-button"
-            >&larr; <span>Back to all vans</span></Link>
-				<h1 className='host-vans-title'>Your listed van</h1>
-				<div className='host-vans-list'>
-					<section>{hostVanEl}</section>
-				</div>
-			</section>
-
-			<nav className='host-nav'>
-				<NavLink
-					to={`/vans/${id}`}
-					end
-					className={({ isActive }) => (isActive ? 'active-link' : '')}
-				>
-					Details
-				</NavLink>
-				<NavLink
-					to={`/vans/${id}/pricing`}
-					end
-					className={({ isActive }) => (isActive ? 'active-link' : '')}
-				>
-					Pricing
-				</NavLink>
-				<NavLink
-					to={`/vans/${id}/photos`}
-					end
-					className={({ isActive }) => (isActive ? 'active-link' : '')}
-				>
-					Photos
-				</NavLink>
-			</nav>
-
-			<Outlet />
-		</>
 	);
 }
