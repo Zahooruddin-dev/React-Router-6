@@ -17,7 +17,12 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+  }
+  
 .site-wrapper {
     min-height: 100vh;
     display: flex;

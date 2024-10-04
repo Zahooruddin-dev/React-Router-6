@@ -1,6 +1,10 @@
-import React from "react";
+import React from "react"; 
+import { useOutletContext } from "react-router-dom";
 export default function VansPricing(){
+  const{van} = useOutletContext()
   return(
-    <h1>VansPricing</h1>
+    <section>
+      <h6>Pricing: <strong>{van.price} $</strong></h6>
+    </section>
   )
 }

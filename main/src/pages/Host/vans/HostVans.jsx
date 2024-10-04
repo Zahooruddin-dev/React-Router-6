@@ -1,7 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 export default function HostVans() {
+	const [searchVans, setSearchVans] = useSearchParams();
+  const typeFilter = searchVans.get('type')
+	console.log(typeFilter);
+		
 	const [vans, setVans] = React.useState([]);
 
 	React.useEffect(() => {

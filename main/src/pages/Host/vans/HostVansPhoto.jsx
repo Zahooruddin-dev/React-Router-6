@@ -1,6 +1,11 @@
-import React from "react";
+import React from "react"; 
+import { useOutletContext } from "react-router-dom";
 export default function VansPhtoto(){
+  const{van} = useOutletContext()
   return(
-    <h1>VansPhtoto</h1>
+    <section>
+      <h5>Photos:</h5>
+      <img src={van.imageUrl}></img>
+    </section>
   )
 }
