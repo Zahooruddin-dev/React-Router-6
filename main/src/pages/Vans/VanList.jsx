@@ -2,8 +2,8 @@ import React from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 
 export default function Vans() {
-	const [searchParams, setSearchParams] = useSearchParams()
-	const typeFilter = searchParams.get("type")
+	const [searchParams, setSearchParams] = useSearchParams();
+	const typeFilter = searchParams.get('type');
 	console.log(typeFilter);
 	const [vans, setVans] = React.useState([]);
 	React.useEffect(() => {
@@ -33,22 +33,36 @@ export default function Vans() {
 			</Link>
 		</div>
 	));
-  /**
-     * Challenge: add links to filter the vans by type. Use a hard-coded
-     * `to` string like we just practiced. The types are "simple", 
-     * "luxury", and "rugged".
-     * 
-     * For now, give the Links a className of `van-type simple` (and
-     * manually replace "simple" with "luxury" and "rugged" for 
-     * the Links that filter by those types.)
-     * 
-     * Include a Link to clear the filters. Its className should be
-     * `van-type clear-filters`
-     */
+	/**
+	 * Challenge: add links to filter the vans by type. Use a hard-coded
+	 * `to` string like we just practiced. The types are "simple",
+	 * "luxury", and "rugged".
+	 *
+	 * For now, give the Links a className of `van-type simple` (and
+	 * manually replace "simple" with "luxury" and "rugged" for
+	 * the Links that filter by those types.)
+	 *
+	 * Include a Link to clear the filters. Its className should be
+	 * `van-type clear-filters`
+	 */
 
 	return (
 		<div className='van-list-container'>
 			<h1>Explore our van options</h1>
+			<div className='van-list-filter-buttons'>
+				<Link to={'?type=simple'} className='van-type simple'>
+					simple
+				</Link>
+				<Link to={'?type=rugged'} className='van-type rugged'>
+					rugged
+				</Link>
+				<Link to={'?type=luxury'} className='van-type luxury'>
+					luxury
+				</Link>
+				<Link to={'.'} className='van-type clear-filters'>
+					Clear
+				</Link>
+			</div>
 			<div className='van-list'>{vanElements}</div>
 		</div>
 	);
