@@ -14,10 +14,15 @@ export default function Vans() {
 	const displayedVans = typeFilter
 		? vans.filter((van) => van.type === typeFilter)
 		: vans;
+		 /**
+     * Mini-challenge: change the absolute path in the Link below
+     * to a relative path. There's also one still in the HostVans.jsx
+     * file that you should change, too.
+     */
 	const vanElements = displayedVans.map((van) => (
 		<div key={van.id} className='van-tile'>
 			<Link
-				to={`/vans/${van.id}`}
+				to={`${van.id}`}
 				aria-label={`View details for ${van.name}, 
                      priced at $${van.price} per day`}
 			>
