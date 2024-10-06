@@ -13,19 +13,14 @@ import HostLayout from './components/HostLayout,.jsx';
 import VansPricing from './pages/Host/vans/HostVansPricing.jsx'; 
 import VansPhtoto from './pages/Host/vans/HostVansPhoto.jsx';
 import VansInfo from './pages/Host/vans/HostVansInfo.jsx';
+import NotFound from './pages/NotFound.jsx';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './server.js';
 function App() {
-	   
-  /**
-   * Don't forget: you'll need to use a special tool from
-   * React Router so we can keep the top info (and 
-   * eventually the navbar we build) on the page while going
-   * from nested route to nested route. This will require some
-   * slight changes to HostVanDetail.jsx
-   */
+	
 	return (
-		<BrowserRouter>
+/* 		<Route path="*" element={<h1>Page not found!</h1>} />
+ */		<BrowserRouter>
 			<Routes>
 				<Route path= '/'element={<Layout />}>
 					<Route index element={<Home />} />
@@ -44,8 +39,10 @@ function App() {
 								<Route path='photos' element={<VansPhtoto />} />
 								<Route path='info' element={<VansInfo />} />
 							</Route>
+
 					</Route>
-					
+					<Route path='*' element={<NotFound/>}/>
+
 				</Route>
 			</Routes>
 		</BrowserRouter>
