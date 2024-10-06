@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
 export default function Vans() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const typeFilter = searchParams.get('type');
+	const location = useLocation()
 	console.log(typeFilter);
 	const [vans, setVans] = React.useState([]);
 	React.useEffect(() => {
@@ -14,17 +15,14 @@ export default function Vans() {
 	const displayedVans = typeFilter
 		? vans.filter((van) => van.type === typeFilter)
 		: vans;
-		 /**
-     * Mini-challenge: change the absolute path in the Link below
-     * to a relative path. There's also one still in the HostVans.jsx
-     * file that you should change, too.
-     */
+
 	const vanElements = displayedVans.map((van) => (
 		<div key={van.id} className='van-tile'>
 			<Link
 				to={`${van.id}`}
 				aria-label={`View details for ${van.name}, 
                      priced at $${van.price} per day`}
+				state={{ search: `?${searchParams.toString()}` }}
 			>
 				<img src={van.imageUrl} alt={`Image of ${van.name}`} />
 				<div className='van-info'>
@@ -44,28 +42,36 @@ export default function Vans() {
 			<div className='van-list-filter-buttons'>
 				<button
 					onClick={() => setSearchParams({ type: 'simple' })}
-					className={`van-type simple ${typeFilter=== 'simple'? 'selected':''} `}
+					className={`van-type simple ${
+						typeFilter === 'simple' ? 'selected' : ''
+					} `}
 				>
 					simple
 				</button>
 				<button
 					onClick={() => setSearchParams({ type: 'rugged' })}
-					className={`van-type rugged ${typeFilter=== 'rugged'? 'selected':''}`  }
+					className={`van-type rugged ${
+						typeFilter === 'rugged' ? 'selected' : ''
+					}`}
 				>
 					rugged
 				</button>
 				<button
 					onClick={() => setSearchParams({ type: 'luxury' })}
-					className={`van-type luxury ${typeFilter=== 'luxury'? 'selected':''}`  }
+					className={`van-type luxury ${
+						typeFilter === 'luxury' ? 'selected' : ''
+					}`}
 				>
 					luxury
 				</button>
-				{ typeFilter && <button
-					onClick={() => setSearchParams({})}
-					className='van-type clear-filters'
-				>
-					Clear
-				</button>}
+				{typeFilter && (
+					<button
+						onClick={() => setSearchParams({})}
+						className='van-type clear-filters'
+					>
+						Clear
+					</button>
+				)}
 			</div>
 			<div className='van-list'>{vanElements}</div>
 		</div>
