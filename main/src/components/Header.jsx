@@ -16,7 +16,7 @@ export default function Header() {
 					to='/host'
 					className={({ isActive }) => (isActive ? activeStyle : null)}
 				>
-					Home
+					 Host
 				</NavLink>
 				<NavLink
 					to='/about'
