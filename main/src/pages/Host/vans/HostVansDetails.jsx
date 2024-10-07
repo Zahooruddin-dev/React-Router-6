@@ -4,6 +4,8 @@ import { Outlet, NavLink, useParams, Link } from 'react-router-dom';
 export default function HostVansDetails() {
 	const { id } = useParams();
 	const [van, setVan] = useState(null);
+	const [loading, setLoading] = React.useState(false)
+	const [error, setError] = React.useState(null)
   const activeStyle={
     fontWeight: 'bold',
     textDecoration: 'underline',
