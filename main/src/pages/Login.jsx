@@ -1,27 +1,30 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { loginUser } from '../api';
 export default function Login() {
 	const [loginFormData, setLoginFormData] = React.useState({
 		email: '',
 		password: '',
 	});
-	const location = useLocation();
 	const [status, setStatus] = useState('idle');
 	const [error, setError] = useState(null); // Error state
+	const location = useLocation();
+	const navigate = useNavigate();
 
 	function handleSubmit(e) {
 		e.preventDefault();
 		setStatus('submitting');
 		loginUser(loginFormData)
 			.then((data) => {
-				console.log(data);
-				setStatus('idle');
+				setError(null);
+				localStorage.setItem("loggedin", true)
+				navigate("/host")
 			})
 			.catch((err) => {
-				console.log(err);
-				setStatus('idle');
 				setError(true);
+			})
+			.finally(() => {
+				setStatus('idle');
 			});
 	}
 
@@ -61,7 +64,10 @@ export default function Login() {
 					value={loginFormData.password}
 				/>
 				<button disabled={status === 'submitting'}>
-					{status === 'submitting' ? 'Logging In' : 'Log In'}
+						{status === 'submitting' 
+					? 'Logging In' 
+					: 'Log In'
+						}
 				</button>
 			</form>
 		</div>
