@@ -16,7 +16,7 @@ import VansInfo from './pages/Host/vans/HostVansInfo.jsx';
 import NotFound from './pages/NotFound.jsx';
 import Login from './pages/Login.jsx';
 import AuthRequired from './components/AuthRequired.jsx';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './server.js';
 function App() {
 	return (
@@ -31,8 +31,7 @@ function App() {
 
 					<Route path='/login' element={<Login />} />
 
-
-					<Route element= {<AuthRequired/>}>
+					<Route element={<AuthRequired />}>
 						<Route path='host' element={<HostLayout />}>
 							<Route path='income' element={<Income />} />
 							<Route path='host' element={<Dashboard />} />

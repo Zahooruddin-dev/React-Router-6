@@ -4,13 +4,13 @@ import { Outlet, NavLink, useParams, Link } from 'react-router-dom';
 export default function HostVansDetails() {
 	const { id } = useParams();
 	const [van, setVan] = useState(null);
-	const [loading, setLoading] = React.useState(false)
-	const [error, setError] = React.useState(null)
-  const activeStyle={
-    fontWeight: 'bold',
-    textDecoration: 'underline',
-    color: '#161616'
-  }
+	const [loading, setLoading] = React.useState(false);
+	const [error, setError] = React.useState(null);
+	const activeStyle = {
+		fontWeight: 'bold',
+		textDecoration: 'underline',
+		color: '#161616',
+	};
 	useEffect(() => {
 		fetch(`/api/host/vans/${id}`)
 			.then((res) => res.json())
@@ -20,6 +20,14 @@ export default function HostVansDetails() {
 			})
 			.catch((err) => console.error('Error fetching data:', err));
 	}, [id]);
+
+	if (loading) {
+		return <h1 aria-live='polite'>Loading...</h1>;
+	}
+
+	if (error) {
+		return <h1 aria-live='assertive'>There was an error: {error.message}</h1>;
+	}
 
 	return van ? (
 		<section>
@@ -40,26 +48,26 @@ export default function HostVansDetails() {
 					<NavLink
 						to={`../vans/${id}/info`}
 						end
-            className={({ isActive }) => (isActive ? activeStyle : null)}
-            >
+						className={({ isActive }) => (isActive ? activeStyle : null)}
+					>
 						Details
 					</NavLink>
 					<NavLink
 						to={`../vans/${id}/pricing`}
 						end
-            className={({ isActive }) => (isActive ? activeStyle : null)}
-            >
+						className={({ isActive }) => (isActive ? activeStyle : null)}
+					>
 						Pricing
 					</NavLink>
 					<NavLink
 						to={`../vans/${id}/photos`}
 						end
-            className={({ isActive }) => (isActive ? activeStyle : null)}
-            >
+						className={({ isActive }) => (isActive ? activeStyle : null)}
+					>
 						Photos
 					</NavLink>
 				</nav>
-				<Outlet context={{van}}/>
+				<Outlet context={{ van }} />
 			</div>
 		</section>
 	) : (

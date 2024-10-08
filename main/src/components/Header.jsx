@@ -1,11 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 export default function Header() {
-  const activeStyle={
-    fontWeight: 'bold',
-    textDecoration: 'underline',
-    color: '#161616'
-  }
+	const activeStyle = {
+		fontWeight: 'bold',
+		textDecoration: 'underline',
+		color: '#161616',
+	};
 	return (
 		<header>
 			<NavLink className='site-logo' to='/'>
@@ -16,7 +16,7 @@ export default function Header() {
 					to='/host'
 					className={({ isActive }) => (isActive ? activeStyle : null)}
 				>
-					 Host
+					Host
 				</NavLink>
 				<NavLink
 					to='/about'

@@ -1,34 +1,28 @@
-import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { loginUser } from '../api';
-/**
- * Challenge: hook up our form so it (halfway) works.
- * 
- * 1. Pull in the `loginUser` function from the api.js file
- * 2. Call loginUser when the form is submitted and log the
- *    data that comes back. Use "b@b.com" as the username and
- *    "p123" as the password.
- * 
- *    NOTE: loginUser returns a promise, so you'll need
- *    a .then(data => {...}) to access the data, or use
- *    a separate aync function defined inside handleSubmit
- * 3. TBA
- */ 
-
 export default function Login() {
 	const [loginFormData, setLoginFormData] = React.useState({
 		email: '',
 		password: '',
 	});
 	const location = useLocation();
-	console.log(location);
+	const [status, setStatus] = useState('idle');
+	const [error, setError] = useState(null); // Error state
 
 	function handleSubmit(e) {
 		e.preventDefault();
-        loginUser(loginFormData)
-        .then(data => console.log(data)
-        )
-		console.log(loginFormData);
+		setStatus('submitting');
+		loginUser(loginFormData)
+			.then((data) => {
+				console.log(data);
+				setStatus('idle');
+			})
+			.catch((err) => {
+				console.log(err);
+				setStatus('idle');
+				setError(true);
+			});
 	}
 
 	function handleChange(e) {
@@ -45,6 +39,12 @@ export default function Login() {
 				<h3 className='login-first'>{location.state.message}</h3>
 			)}
 			<h1>Sign in to your account</h1>
+			{error && (
+				<p className='error-message'>
+					{error.message || 'An unknown error occurred.'}
+				</p>
+			)}
+
 			<form onSubmit={handleSubmit} className='login-form'>
 				<input
 					name='email'
@@ -60,7 +60,9 @@ export default function Login() {
 					placeholder='Password'
 					value={loginFormData.password}
 				/>
-				<button>Log in</button>
+				<button disabled={status === 'submitting'}>
+					{status === 'submitting' ? 'Logging In' : 'Log In'}
+				</button>
 			</form>
 		</div>
 	);
