@@ -10,19 +10,7 @@ export default function Login() {
 	const [error, setError] = useState(null); // Error state
 	const location = useLocation();
 	const navigate = useNavigate();
-	  
-    /**
-     * Challenge: make it so after login, we go to the page
-     * we originally were trying to go to instead of always
-     * to the /host route. If the user wasn't redirected to
-     * the login page (i.e. they clicked the link to the login
-     * page instead of being redirected there from a protected 
-     * route) they should still be redirected to /host by default.
-     * 
-     * Hint: you'll need to add code to AuthRequired.jsx and
-     * Login.jsx.
-     */
-
+	const fromLocation = location.state?.from || '/host'
 
 	function handleSubmit(e) {
 		e.preventDefault();
