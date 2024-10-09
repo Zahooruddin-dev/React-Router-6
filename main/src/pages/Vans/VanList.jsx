@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { getVans } from '../../api';
+import { getDoc } from 'firebase/firestore/lite';
 export default function Vans() {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const typeFilter = searchParams.get('type');
